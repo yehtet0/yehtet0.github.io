@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ye Htet — Network Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ───────────────────────────────────────────── */
+:root{
+  --ink:       #0f1117;
+  --ink2:      #3a3d4a;
+  --ink3:      #7a7e8e;
+  --ink4:      #b0b4c1;
+  --paper:     #fafaf8;
+  --paper2:    #f2f1ee;
+  --paper3:    #e8e6e0;
+  --gold:      #c09a5b;
+  --gold2:     #e8c98a;
+  --blue:      #1b3a6b;
+  --blue2:     #2e5fa3;
+  --blue-tint: #edf2fb;
+  --serif:     'Playfair Display', Georgia, serif;
+  --sans:      'DM Sans', sans-serif;
+  --mono:      'DM Mono', monospace;
+  --r:         3px;
+  --shadow:    0 1px 3px rgba(0,0,0,.06), 0 4px 16px rgba(0,0,0,.05);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;font-size:16px;}
+section, #hero{scroll-margin-top:64px;}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;}
+
+/* ── SCROLLBAR ─────────────────────────────────────────── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--paper2);}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px;}
+
+/* ── NAV ───────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(250,250,248,.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--paper3);
+}
+.nav-inner{
+  max-width:1100px;margin:0 auto;padding:0 40px;
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-brand{
+  display:flex;align-items:center;gap:12px;
+  text-decoration:none;
+}
+.nav-monogram{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:13px;font-weight:700;
+  color:#fff;letter-spacing:.04em;
+}
+.nav-name{
+  font-family:var(--serif);font-size:15px;font-weight:500;
+  color:var(--ink);letter-spacing:.01em;
+}
+.nav-links{display:flex;align-items:center;gap:32px;}
+.nav-links a{
+  font-size:12px;font-weight:500;color:var(--ink3);
+  text-decoration:none;letter-spacing:.08em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--blue);}
+.nav-cta{
+  padding:8px 20px;background:var(--blue);color:#fff!important;
+  border-radius:var(--r);font-size:12px!important;
+  transition:background .2s!important;
+}
+.nav-cta:hover{background:var(--blue2)!important;}
+
+/* ── WRAPPER ───────────────────────────────────────────── */
+.page{max-width:1100px;margin:0 auto;padding:0 40px;}
+
+/* ── HERO ──────────────────────────────────────────────── */
+#hero{
+  padding:140px 0 100px;
+  display:grid;grid-template-columns:1fr 380px;gap:80px;
+  align-items:center;
+  border-bottom:1px solid var(--paper3);
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:12px;margin-bottom:24px;
+}
+.hero-eyebrow-line{width:32px;height:1px;background:var(--gold);}
+.hero-eyebrow span{
+  font-family:var(--mono);font-size:11px;color:var(--gold);
+  letter-spacing:.18em;text-transform:uppercase;
+}
+h1{
+  font-family:var(--serif);
+  font-size:clamp(48px,5.5vw,72px);
+  font-weight:700;line-height:1.06;
+  letter-spacing:-.02em;color:var(--ink);
+  margin-bottom:20px;
+}
+h1 em{font-style:italic;color:var(--blue);}
+.hero-sub{
+  font-size:17px;font-weight:300;color:var(--ink2);
+  line-height:1.75;max-width:440px;margin-bottom:36px;
+}
+.hero-sub strong{font-weight:500;color:var(--ink);}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:12px 26px;border-radius:var(--r);
+  font-size:13px;font-weight:500;text-decoration:none;
+  letter-spacing:.03em;transition:all .2s;cursor:pointer;border:none;
+}
+.btn-blue{background:var(--blue);color:#fff;}
+.btn-blue:hover{background:var(--blue2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(27,58,107,.25);}
+.btn-ghost{
+  background:transparent;color:var(--ink2);
+  border:1px solid var(--paper3);
+}
+.btn-ghost:hover{border-color:var(--ink4);color:var(--ink);}
+
+/* Hero card */
+.hero-card{
+  background:#fff;border:1px solid var(--paper3);
+  border-radius:8px;padding:32px;
+  box-shadow:var(--shadow);
+}
+.hero-card-label{
+  font-family:var(--mono);font-size:10px;color:var(--ink4);
+  letter-spacing:.14em;text-transform:uppercase;margin-bottom:20px;
+}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
+.stat{}
+.stat-num{
+  font-family:var(--serif);font-size:32px;font-weight:700;
+  color:var(--ink);line-height:1;margin-bottom:4px;
+}
+.stat-num span{font-size:18px;color:var(--gold);}
+.stat-label{font-size:11px;color:var(--ink3);letter-spacing:.04em;line-height:1.5;}
+.hero-divider{height:1px;background:var(--paper3);margin:20px 0;}
+.status-row{display:flex;align-items:center;gap:10px;}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:#22c55e;
+  box-shadow:0 0 0 3px rgba(34,197,94,.15);
+  animation:pulse2 2s infinite;flex-shrink:0;
+}
+@keyframes pulse2{0%,100%{box-shadow:0 0 0 3px rgba(34,197,94,.15);}50%{box-shadow:0 0 0 6px rgba(34,197,94,0);}}
+.status-text{font-size:12px;color:var(--ink2);}
+.status-text strong{color:var(--ink);font-weight:500;}
+.cert-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px;}
+.cert-pill{
+  font-family:var(--mono);font-size:10px;
+  padding:4px 10px;border-radius:2px;
+  background:var(--blue-tint);color:var(--blue2);
+  border:1px solid rgba(46,95,163,.15);letter-spacing:.04em;
+}
+
+/* ── SECTION HEADER ─────────────────────────────────────── */
+.sec-header{margin-bottom:48px;}
+.sec-eyebrow{
+  font-family:var(--mono);font-size:10px;color:var(--gold);
+  letter-spacing:.18em;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:10px;
+}
+.sec-eyebrow::after{content:'';flex:1;height:1px;background:var(--paper3);}
+.sec-title{
+  font-family:var(--serif);font-size:clamp(26px,3vw,36px);
+  font-weight:700;color:var(--ink);letter-spacing:-.01em;
+}
+
+/* ── SECTIONS COMMON ─────────────────────────────────────── */
+section{padding:80px 0;border-bottom:1px solid var(--paper3);}
+section:last-of-type{border-bottom:none;}
+
+/* ── EXPERIENCE ─────────────────────────────────────────── */
+.exp-list{display:flex;flex-direction:column;gap:0;}
+.exp-item{
+  display:grid;grid-template-columns:200px 1fr;
+  gap:0;
+  padding:40px 0;
+  border-bottom:1px solid var(--paper3);
+  opacity:0;transform:translateY(24px);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.exp-item.visible{opacity:1;transform:none;}
+.exp-item:last-child{border-bottom:none;padding-bottom:0;}
+.exp-meta{padding-right:40px;}
+.exp-period{
+  font-family:var(--mono);font-size:11px;color:var(--ink4);
+  letter-spacing:.06em;line-height:1.8;margin-bottom:10px;
+}
+.exp-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 9px;border-radius:2px;
+  font-size:10px;font-weight:500;letter-spacing:.06em;
+  font-family:var(--mono);
+}
+.badge-current{background:rgba(34,197,94,.1);color:#16a34a;}
+.badge-past{background:var(--paper2);color:var(--ink3);}
+.exp-body{}
+.exp-company{
+  font-family:var(--serif);font-size:20px;font-weight:500;
+  color:var(--ink);margin-bottom:4px;
+}
+.exp-role{
+  font-family:var(--mono);font-size:11px;color:var(--blue2);
+  letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px;
+}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.exp-bullets li{
+  font-size:14px;color:var(--ink2);line-height:1.7;
+  padding-left:18px;position:relative;font-weight:300;
+}
+.exp-bullets li::before{
+  content:'';position:absolute;left:0;top:10px;
+  width:6px;height:1px;background:var(--gold);
+}
+
+/* ── SKILLS ─────────────────────────────────────────────── */
+.skills-layout{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:var(--paper3);border:1px solid var(--paper3);border-radius:6px;overflow:hidden;}
+.skill-cell{
+  background:var(--paper);padding:28px 28px 24px;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .5s ease,transform .5s ease,background .2s;
+}
+.skill-cell:hover{background:#fff;}
+.skill-cell.visible{opacity:1;transform:none;}
+.skill-cell-num{
+  font-family:var(--serif);font-size:36px;font-weight:700;
+  color:var(--paper3);line-height:1;margin-bottom:12px;
+  letter-spacing:-.02em;
+}
+.skill-cell-title{
+  font-size:13px;font-weight:500;color:var(--ink);
+  margin-bottom:14px;letter-spacing:.01em;
+}
+.skill-items{display:flex;flex-direction:column;gap:7px;}
+.skill-row{
+  display:flex;align-items:center;gap:10px;
+}
+.skill-name{font-size:12px;color:var(--ink3);flex:1;font-weight:300;}
+.skill-bar-bg{width:60px;height:2px;background:var(--paper3);border-radius:1px;overflow:hidden;}
+.skill-bar-fill{height:100%;background:var(--gold);border-radius:1px;width:0;transition:width 1s ease .3s;}
+.skill-cell.visible .skill-bar-fill{width:var(--w);}
+
+/* ── CERTIFICATIONS ─────────────────────────────────────── */
+.cert-list{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.cert-item{
+  background:#fff;border:1px solid var(--paper3);
+  border-radius:6px;padding:24px 28px;
+  display:flex;align-items:flex-start;gap:16px;
+  box-shadow:var(--shadow);
+  opacity:0;transform:translateY(16px);
+  transition:opacity .5s ease,transform .5s ease,box-shadow .2s;
+}
+.cert-item:hover{box-shadow:0 4px 24px rgba(0,0,0,.08);}
+.cert-item.visible{opacity:1;transform:none;}
+.cert-logo{
+  width:44px;height:44px;border-radius:4px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:11px;font-weight:700;
+  letter-spacing:.04em;flex-shrink:0;
+}
+.cert-logo.cisco{background:var(--blue-tint);color:var(--blue);}
+.cert-logo.oracle{background:#fff8ec;color:#b05d00;border:1px solid #fde8c0;}
+.cert-title{font-size:14px;font-weight:500;color:var(--ink);line-height:1.4;margin-bottom:5px;}
+.cert-issuer{font-family:var(--mono);font-size:10px;color:var(--ink4);letter-spacing:.1em;text-transform:uppercase;}
+
+/* ── CONTACT ─────────────────────────────────────────────── */
+#contact{background:var(--ink);border-radius:12px;padding:64px 56px;margin-bottom:48px;}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+.contact-left .sec-eyebrow{color:var(--gold2);}
+.contact-left .sec-eyebrow::after{background:rgba(255,255,255,.1);}
+.contact-left .sec-title{color:#fff;}
+.contact-tagline{font-size:15px;color:rgba(255,255,255,.55);font-weight:300;line-height:1.75;margin-top:16px;}
+.contact-links{display:flex;flex-direction:column;gap:14px;}
+.contact-link{
+  display:flex;align-items:center;gap:14px;
+  text-decoration:none;padding:16px 20px;
+  border-radius:4px;border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.04);
+  transition:all .2s;
+}
+.contact-link:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);transform:translateX(4px);}
+.contact-link-icon{
+  width:36px;height:36px;border-radius:4px;
+  background:rgba(255,255,255,.08);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.contact-link-icon svg{width:15px;height:15px;stroke:var(--gold2);fill:none;stroke-width:1.8;}
+.contact-link-label{font-family:var(--mono);font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px;}
+.contact-link-val{font-size:13px;color:rgba(255,255,255,.8);font-weight:400;}
+
+/* ── FOOTER ─────────────────────────────────────────────── */
+footer{
+  padding:28px 0;text-align:center;
+  font-family:var(--mono);font-size:11px;color:var(--ink4);
+  letter-spacing:.08em;
+}
+
+/* ── ANIMATIONS ─────────────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ── RESPONSIVE ─────────────────────────────────────────── */
+@media(max-width:900px){
+  .page{padding:0 24px;}
+  #hero{grid-template-columns:1fr;gap:40px;padding:120px 0 60px;}
+  .hero-card{display:none;}
+  .skills-layout{grid-template-columns:1fr 1fr;}
+  .cert-list{grid-template-columns:1fr;}
+  .contact-inner{grid-template-columns:1fr;}
+  .nav-links a:not(.nav-cta):not(:nth-child(-n+3)){display:none;}
+}
+@media(max-width:640px){
+  .nav-inner{padding:0 20px;}
+  .exp-item{grid-template-columns:1fr;gap:12px;}
+  .exp-meta{padding-right:0;}
+  .skills-layout{grid-template-columns:1fr;}
+  #contact{padding:40px 28px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-brand" href="#">
+      <div class="nav-monogram">YH</div>
+      <span class="nav-name">Ye Htet</span>
+    </a>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#certs">Credentials</a>
+      <a href="#contact" class="nav-cta btn">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page">
+<section id="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span>Network Engineer</span>
+    </div>
+    <h1>Ye<br><em>Htet.</em></h1>
+    <p class="hero-sub">
+      <strong>7+ years</strong> designing and managing complex network infrastructures.
+      Specialized in <strong>BGP routing</strong>, <strong>IXP operations</strong>, and
+      enterprise security. Currently seeking opportunities in <strong>Singapore</strong>.
+    </p>
+    <div class="hero-actions">
+      <a href="mailto:yehtet.y0h@gmail.com" class="btn btn-blue">Get In Touch</a>
+      <a href="https://linkedin.com/in/yehtet-it" target="_blank" class="btn btn-ghost">LinkedIn Profile</a>
+    </div>
+  </div>
+
+  <div class="hero-card reveal">
+    <div class="hero-card-label">Profile Summary</div>
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-num">7<span>+</span></div>
+        <div class="stat-label">Years of<br>Experience</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Companies<br>Worked At</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Professional<br>Certifications</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">99<span>%</span></div>
+        <div class="stat-label">IXP Uptime<br>Maintained</div>
+      </div>
+    </div>
+    <div class="hero-divider"></div>
+    <div class="status-row">
+      <div class="status-dot"></div>
+      <div class="status-text">
+        <strong>Open to work</strong> — Singapore
+      </div>
+    </div>
+    <div class="cert-pills">
+      <span class="cert-pill">CCNP ENARSI</span>
+      <span class="cert-pill">CCNA</span>
+      <span class="cert-pill">Oracle OCI</span>
+      <span class="cert-pill">BGP / RPKI</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Professional Experience</div>
+    <h2 class="sec-title">Work History</h2>
+  </div>
+  <div class="exp-list">
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Jan 2026<br>— Present</div>
+        <span class="exp-badge badge-current">● Current</span>
+      </div>
+      <div class="exp-body">
+        <div class="exp-company">Myanmar Internet Exchange</div>
+        <div class="exp-role">Network Engineer · IXP Operations</div>
+        <ul class="exp-bullets">
+          <li>Manage core IXP infrastructure supporting BGP peering for ISPs, CDN partners, and content providers, ensuring 99.9%+ availability.</li>
+          <li>Implement BGP route filtering, IRR validation, and RPKI to strengthen routing security across the national internet exchange.</li>
+          <li>Coordinate with upstream providers and international gateways for optimal peering, latency, and traffic engineering.</li>
+          <li>Perform capacity planning and bandwidth analysis; support member onboarding and route advertisement configuration.</li>
+          <li>Provide incident response during outages; maintain IP allocations, peering records, and topology documentation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Nov 2016<br>— Dec 2025</div>
+        <span class="exp-badge badge-past">9 years</span>
+      </div>
+      <div class="exp-body">
+        <div class="exp-company">BLUECORE Technologies Co., Ltd</div>
+        <div class="exp-role">Network Engineer · Enterprise</div>
+        <ul class="exp-bullets">
+          <li>Designed and deployed enterprise IT networks for client organizations across Myanmar, aligning infrastructure with business goals.</li>
+          <li>Configured and maintained routers, switches, firewalls, load balancers, and wireless controllers across multi-site environments.</li>
+          <li>Administered Active Directory — user/group management, Group Policy Objects, and domain security configurations.</li>
+          <li>Led data center migration and system integration projects; managed cross-functional teams and stakeholder communications.</li>
+          <li>Managed VMware ESXi and Hyper-V virtualised environments; developed and tested disaster recovery and BCP plans.</li>
+          <li>Implemented firewalls, VPNs, and IDS/IPS systems; conducted regular vulnerability assessments and security audits.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-meta">
+        <div class="exp-period">Dec 2015<br>— Oct 2016</div>
+        <span class="exp-badge badge-past">1 year</span>
+      </div>
+      <div class="exp-body">
+        <div class="exp-company">Innovative Vision Co., Ltd</div>
+        <div class="exp-role">Junior Network Engineer</div>
+        <ul class="exp-bullets">
+          <li>Diagnosed and resolved network issues, reducing customer resolution time through systematic troubleshooting methodologies.</li>
+          <li>Implemented firewall configurations and vulnerability assessments; maintained system documentation and network inventory.</li>
+          <li>Supported technology upgrades, system integrations, and seamless network migrations across client environments.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Technical Expertise</div>
+    <h2 class="sec-title">Core Skills</h2>
+  </div>
+  <div class="skills-layout">
+
+    <div class="skill-cell">
+      <div class="skill-cell-num">01</div>
+      <div class="skill-cell-title">Routing &amp; Switching</div>
+      <div class="skill-items">
+        <div class="skill-row"><span class="skill-name">BGP / RPKI / IRR</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:95%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">OSPF / EIGRP</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">MPLS / SD-WAN</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:80%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">VLANs / STP / RSTP</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:92%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="skill-cell-num">02</div>
+      <div class="skill-cell-title">Security &amp; Firewalls</div>
+      <div class="skill-items">
+        <div class="skill-row"><span class="skill-name">Firewall Management</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">VPN / IPSec / SSL</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:88%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">IDS / IPS</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:82%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Vulnerability Assessment</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:78%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="skill-cell-num">03</div>
+      <div class="skill-cell-title">IXP Operations</div>
+      <div class="skill-items">
+        <div class="skill-row"><span class="skill-name">BGP Peering</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:95%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Route Policy / Filtering</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:92%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Traffic Engineering</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:88%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">CDN / ISP Coordination</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="skill-cell-num">04</div>
+      <div class="skill-cell-title">Virtualisation &amp; Cloud</div>
+      <div class="skill-items">
+        <div class="skill-row"><span class="skill-name">VMware ESXi</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:88%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Hyper-V</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:82%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Oracle Cloud (OCI)</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:75%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Cloud Networking</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:78%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="skill-cell-num">05</div>
+      <div class="skill-cell-title">Platforms &amp; Tools</div>
+      <div class="skill-items">
+        <div class="skill-row"><span class="skill-name">Cisco IOS / NX-OS</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:93%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Windows Server / AD</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Network Monitoring</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:87%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Wireless Infra (APC)</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:80%"></div></div></div>
+      </div>
+    </div>
+
+    <div class="skill-cell">
+      <div class="skill-cell-num">06</div>
+      <div class="skill-cell-title">Disaster Recovery</div>
+      <div class="skill-items">
+        <div class="skill-row"><span class="skill-name">DR Planning &amp; Testing</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:88%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Business Continuity</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:85%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">High Availability</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:90%"></div></div></div>
+        <div class="skill-row"><span class="skill-name">Incident Response</span><div class="skill-bar-bg"><div class="skill-bar-fill" style="--w:92%"></div></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs">
+  <div class="sec-header reveal">
+    <div class="sec-eyebrow">Credentials</div>
+    <h2 class="sec-title">Certifications</h2>
+  </div>
+  <div class="cert-list">
+    <div class="cert-item">
+      <div class="cert-logo cisco">CCNP</div>
+      <div>
+        <div class="cert-title">Cisco Enterprise Advanced Routing and Services (ENARSI)</div>
+        <div class="cert-issuer">Cisco Systems</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-logo cisco">CCNA</div>
+      <div>
+        <div class="cert-title">Cisco Certified Network Associate — Routing &amp; Switching</div>
+        <div class="cert-issuer">Cisco Systems</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-logo oracle">OCI</div>
+      <div>
+        <div class="cert-title">Oracle Cloud Infrastructure 2020 Certified Associate</div>
+        <div class="cert-issuer">Oracle</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-logo oracle">OCI</div>
+      <div>
+        <div class="cert-title">Oracle Cloud Infrastructure 2019 Certified</div>
+        <div class="cert-issuer">Oracle</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="padding:0;border:none;margin-bottom:40px;">
+  <div id="contact" class="reveal">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="sec-eyebrow">Get In Touch</div>
+        <h2 class="sec-title" style="color:#fff;">Open to Singapore<br>Opportunities</h2>
+        <p class="contact-tagline">Network Engineer with CCNP expertise and IXP operations background. Available on 1 month notice.</p>
+      </div>
+      <div class="contact-links">
+        <a href="mailto:yehtet.y0h@gmail.com" class="contact-link">
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="contact-link-label">Email</div><div class="contact-link-val">yehtet.y0h@gmail.com</div></div>
+        </a>
+        <a href="tel:+959260374243" class="contact-link">
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6 6l.88-.88a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div><div class="contact-link-label">WhatsApp</div><div class="contact-link-val">+95 926 037 4243</div></div>
+        </a>
+        <a href="https://linkedin.com/in/yehtet-it" target="_blank" class="contact-link">
+          <div class="contact-link-icon"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></div>
+          <div><div class="contact-link-label">LinkedIn</div><div class="contact-link-val">linkedin.com/in/yehtet-it</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<footer>
+  <div class="page">Ye Htet · Network Engineer · Yangon → Singapore · 2026</div>
+</footer>
+
+<script>
+// Scroll reveal
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+},{threshold:.12});
+document.querySelectorAll('.reveal,.exp-item,.skill-cell,.cert-item').forEach(el=>io.observe(el));
+
+// Stagger delays
+document.querySelectorAll('.exp-item').forEach((el,i)=>el.style.transitionDelay=`${i*0.1}s`);
+document.querySelectorAll('.skill-cell').forEach((el,i)=>el.style.transitionDelay=`${i*0.07}s`);
+document.querySelectorAll('.cert-item').forEach((el,i)=>el.style.transitionDelay=`${i*0.08}s`);
+</script>
+</body>
+</html>
